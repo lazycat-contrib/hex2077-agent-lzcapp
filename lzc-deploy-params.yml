@@ -1,0 +1,422 @@
+params:
+  # ==================== Required ====================
+  - id: ai_api_key
+    type: secret
+    name: AI API Key
+    description: API key for AI provider (OpenAI, DeepSeek, Grok, Gemini)
+    optional: false
+
+  # ==================== AI Configuration ====================
+  - id: ai_base_url
+    type: string
+    name: AI Base URL
+    description: API base URL. Defaults to OpenAI. For DeepSeek use https://api.deepseek.com, for Gemini use https://generativelanguage.googleapis.com/v1beta/openai
+    optional: true
+    default_value: https://api.openai.com/v1
+
+  - id: ai_model
+    type: string
+    name: AI Model
+    description: "Model name. Examples: gpt-4o, deepseek-chat, gemini-1.5-pro"
+    optional: true
+    default_value: gpt-4o
+
+  # ==================== Knowledge Base ====================
+  - id: kb_password
+    type: secret
+    name: Knowledge Base Password
+    description: Password for accessing /knowledge management interface
+    optional: true
+    default_value: admin123
+
+  - id: kb_wiki_language
+    type: string
+    name: KB Wiki Language
+    description: Language for wiki synthesis (e.g., 简体中文, English)
+    optional: true
+    default_value: 简体中文
+
+  - id: kb_data_source_preference
+    type: string
+    name: KB Data Source
+    description: Data source preference - wiki (prioritize wiki pages), part (raw chunks only), both (all)
+    optional: true
+    default_value: wiki
+
+  # ==================== OpenClaw China Adapter ====================
+  - id: openclaw_enabled
+    type: bool
+    name: Enable OpenClaw Adapter
+    description: Enable cross-platform chatbot integration (Feishu, DingTalk, WeChat, etc.)
+    optional: true
+    default_value: "true"
+
+  # ==================== Feishu (飞书) ====================
+  - id: feishu_enabled
+    type: bool
+    name: Enable Feishu Bot
+    description: Enable Feishu (Lark) chatbot integration
+    optional: true
+    default_value: "false"
+
+  - id: feishu_app_id
+    type: string
+    name: Feishu App ID
+    description: Feishu application ID (e.g., cli_xxxxxx)
+    optional: true
+
+  - id: feishu_app_secret
+    type: secret
+    name: Feishu App Secret
+    description: Feishu application secret
+    optional: true
+
+  - id: feishu_connection_mode
+    type: string
+    name: Feishu Connection Mode
+    description: Connection mode - websocket or webhook
+    optional: true
+    default_value: websocket
+
+  # ==================== DingTalk (钉钉) ====================
+  - id: dingtalk_enabled
+    type: bool
+    name: Enable DingTalk Bot
+    description: Enable DingTalk chatbot integration
+    optional: true
+    default_value: "false"
+
+  - id: dingtalk_client_id
+    type: string
+    name: DingTalk Client ID
+    description: DingTalk client ID (e.g., dingxxxxxx)
+    optional: true
+
+  - id: dingtalk_client_secret
+    type: secret
+    name: DingTalk Client Secret
+    description: DingTalk client secret
+    optional: true
+
+  - id: dingtalk_connection_mode
+    type: string
+    name: DingTalk Connection Mode
+    description: Connection mode - stream or webhook
+    optional: true
+    default_value: stream
+
+  # ==================== QQ Bot ====================
+  - id: qqbot_enabled
+    type: bool
+    name: Enable QQ Bot
+    description: Enable QQ chatbot integration
+    optional: true
+    default_value: "false"
+
+  - id: qqbot_app_id
+    type: string
+    name: QQ Bot App ID
+    description: QQ Bot application ID (e.g., 10xxxxxx)
+    optional: true
+
+  - id: qqbot_client_secret
+    type: secret
+    name: QQ Bot Client Secret
+    description: QQ Bot client secret
+    optional: true
+
+  # ==================== WeCom Bot (企业微信智能机器人) ====================
+  - id: wecom_enabled
+    type: bool
+    name: Enable WeCom Bot
+    description: Enable WeCom Smart Bot for internal groups
+    optional: true
+    default_value: "false"
+
+  - id: wecom_bot_mode
+    type: string
+    name: WeCom Bot Mode
+    description: Connection mode - ws (WebSocket) or webhook
+    optional: true
+    default_value: ws
+
+  - id: wecom_bot_id
+    type: string
+    name: WeCom Bot ID
+    description: WeCom bot ID
+    optional: true
+
+  - id: wecom_bot_secret
+    type: secret
+    name: WeCom Bot Secret
+    description: WeCom bot secret
+    optional: true
+
+  # ==================== WeChat MP (微信公众号) ====================
+  - id: wechat_mp_enabled
+    type: bool
+    name: Enable WeChat MP
+    description: Enable WeChat Official Account (Subscription/Service) integration
+    optional: true
+    default_value: "false"
+
+  - id: wechat_mp_app_id
+    type: string
+    name: WeChat MP App ID
+    description: WeChat MP App ID (e.g., wxxxxxxx)
+    optional: true
+
+  - id: wechat_mp_app_secret
+    type: secret
+    name: WeChat MP App Secret
+    description: WeChat MP App Secret
+    optional: true
+
+  - id: wechat_mp_token
+    type: string
+    name: WeChat MP Token
+    description: WeChat MP verification token
+    optional: true
+
+  - id: wechat_mp_aes_key
+    type: secret
+    name: WeChat MP AES Key
+    description: WeChat MP message encryption key (43 characters)
+    optional: true
+
+  - id: wechat_mp_message_mode
+    type: string
+    name: WeChat MP Message Mode
+    description: Message mode - plain (plaintext), compatible, or secure
+    optional: true
+    default_value: plain
+
+  # ==================== WeCom App (企业微信自建应用) ====================
+  - id: wecom_app_enabled
+    type: bool
+    name: Enable WeCom App
+    description: Enable WeCom Self-Built App (can access personal WeChat)
+    optional: true
+    default_value: "false"
+
+  - id: wecom_app_corp_id
+    type: string
+    name: WeCom App Corp ID
+    description: WeCom Corp ID (e.g., wwxxxxxx)
+    optional: true
+
+  - id: wecom_app_corp_secret
+    type: secret
+    name: WeCom App Corp Secret
+    description: WeCom App Corp Secret
+    optional: true
+
+  - id: wecom_app_agent_id
+    type: string
+    name: WeCom App Agent ID
+    description: WeCom App Agent ID (e.g., 1000001)
+    optional: true
+
+  - id: wecom_app_token
+    type: string
+    name: WeCom App Token
+    description: WeCom App verification token
+    optional: true
+
+  - id: wecom_app_aes_key
+    type: secret
+    name: WeCom App AES Key
+    description: WeCom App message encryption key
+    optional: true
+
+  # ==================== WeCom KF (微信客服) ====================
+  - id: wecom_kf_enabled
+    type: bool
+    name: Enable WeCom KF
+    description: Enable WeCom Customer Service for external WeChat users
+    optional: true
+    default_value: "false"
+
+  - id: wecom_kf_corp_id
+    type: string
+    name: WeCom KF Corp ID
+    description: WeCom KF Corp ID (e.g., wwxxxxxx)
+    optional: true
+
+  - id: wecom_kf_corp_secret
+    type: secret
+    name: WeCom KF Corp Secret
+    description: WeCom KF Corp Secret
+    optional: true
+
+  - id: wecom_kf_open_kfid
+    type: string
+    name: WeCom KF Open KFID
+    description: WeCom KF Open KFID (e.g., wkxxxxxx)
+    optional: true
+
+  - id: wecom_kf_token
+    type: string
+    name: WeCom KF Token
+    description: WeCom KF verification token
+    optional: true
+
+  - id: wecom_kf_aes_key
+    type: secret
+    name: WeCom KF AES Key
+    description: WeCom KF message encryption key
+    optional: true
+
+  # ==================== WeChat App (个人微信) ====================
+  - id: wechat_app_enabled
+    type: bool
+    name: Enable WeChat App
+    description: Enable personal WeChat integration (via wechatbot SDK)
+    optional: true
+    default_value: "false"
+
+  - id: wechat_app_storage
+    type: string
+    name: WeChat App Storage
+    description: Storage type for WeChat bot session - file or memory
+    optional: true
+    default_value: file
+
+  - id: wechat_app_log_level
+    type: string
+    name: WeChat App Log Level
+    description: Log level - debug, info, warn, error
+    optional: true
+    default_value: info
+
+locales:
+  zh:
+    ai_api_key:
+      name: AI API密钥
+      description: AI提供商的API密钥（支持OpenAI、DeepSeek、Grok、Gemini等）
+    ai_base_url:
+      name: AI API地址
+      description: API基础地址。默认为OpenAI。DeepSeek使用https://api.deepseek.com，Gemini使用https://generativelanguage.googleapis.com/v1beta/openai
+    ai_model:
+      name: AI模型
+      description: 模型名称。例如：gpt-4o、deepseek-chat、gemini-1.5-pro
+    kb_password:
+      name: 知识库密码
+      description: 访问知识库管理界面(/knowledge)的密码
+    kb_wiki_language:
+      name: 知识库语言
+      description: 知识库百科合成语言（如：简体中文、English）
+    kb_data_source_preference:
+      name: 知识库数据源
+      description: 数据源偏好 - wiki（优先Wiki页面）、part（仅原始分片）、both（全部）
+    openclaw_enabled:
+      name: 启用OpenClaw适配器
+      description: 启用跨平台聊天机器人集成（飞书、钉钉、微信等）
+    feishu_enabled:
+      name: 启用飞书机器人
+      description: 启用飞书(Lark)聊天机器人集成
+    feishu_app_id:
+      name: 飞书App ID
+      description: 飞书应用ID（如：cli_xxxxxx）
+    feishu_app_secret:
+      name: 飞书App Secret
+      description: 飞书应用密钥
+    feishu_connection_mode:
+      name: 飞书连接模式
+      description: 连接模式 - websocket或webhook
+    dingtalk_enabled:
+      name: 启用钉钉机器人
+      description: 启用钉钉聊天机器人集成
+    dingtalk_client_id:
+      name: 钉钉Client ID
+      description: 钉钉客户端ID（如：dingxxxxxx）
+    dingtalk_client_secret:
+      name: 钉钉Client Secret
+      description: 钉钉客户端密钥
+    dingtalk_connection_mode:
+      name: 钉钉连接模式
+      description: 连接模式 - stream或webhook
+    qqbot_enabled:
+      name: 启用QQ机器人
+      description: 启用QQ聊天机器人集成
+    qqbot_app_id:
+      name: QQ机器人App ID
+      description: QQ机器人应用ID（如：10xxxxxx）
+    qqbot_client_secret:
+      name: QQ机器人Client Secret
+      description: QQ机器人客户端密钥
+    wecom_enabled:
+      name: 启用企业微信机器人
+      description: 启用企业微信智能机器人群聊集成
+    wecom_bot_mode:
+      name: 企业微信机器人模式
+      description: 连接模式 - ws（WebSocket）或webhook
+    wecom_bot_id:
+      name: 企业微信机器人ID
+      description: 企业微信机器人ID
+    wecom_bot_secret:
+      name: 企业微信机器人密钥
+      description: 企业微信机器人密钥
+    wechat_mp_enabled:
+      name: 启用微信公众号
+      description: 启用微信公众号（订阅号/服务号）集成
+    wechat_mp_app_id:
+      name: 微信公众号App ID
+      description: 微信公众号App ID（如：wxxxxxxx）
+    wechat_mp_app_secret:
+      name: 微信公众号App Secret
+      description: 微信公众号App密钥
+    wechat_mp_token:
+      name: 微信公众号Token
+      description: 微信公众号验证令牌
+    wechat_mp_aes_key:
+      name: 微信公众号AES密钥
+      description: 微信公众号消息加密密钥（43位）
+    wechat_mp_message_mode:
+      name: 微信公众号消息模式
+      description: 消息模式 - plain（明文）、compatible（兼容模式）、secure（安全模式）
+    wecom_app_enabled:
+      name: 启用企业微信应用
+      description: 启用企业微信自建应用（可接入个人微信）
+    wecom_app_corp_id:
+      name: 企业微信应用Corp ID
+      description: 企业微信Corp ID（如：wwxxxxxx）
+    wecom_app_corp_secret:
+      name: 企业微信应用Corp Secret
+      description: 企业微信应用密钥
+    wecom_app_agent_id:
+      name: 企业微信应用Agent ID
+      description: 企业微信应用Agent ID（如：1000001）
+    wecom_app_token:
+      name: 企业微信应用Token
+      description: 企业微信应用验证令牌
+    wecom_app_aes_key:
+      name: 企业微信应用AES密钥
+      description: 企业微信应用消息加密密钥
+    wecom_kf_enabled:
+      name: 启用微信客服
+      description: 启用企业微信客服（外部微信用户接入）
+    wecom_kf_corp_id:
+      name: 微信客服Corp ID
+      description: 企业微信客服Corp ID（如：wwxxxxxx）
+    wecom_kf_corp_secret:
+      name: 微信客服Corp Secret
+      description: 企业微信客服密钥
+    wecom_kf_open_kfid:
+      name: 微信客服Open KFID
+      description: 企业微信客服Open KFID（如：wkxxxxxx）
+    wecom_kf_token:
+      name: 微信客服Token
+      description: 企业微信客服验证令牌
+    wecom_kf_aes_key:
+      name: 微信客服AES密钥
+      description: 企业微信客服消息加密密钥
+    wechat_app_enabled:
+      name: 启用个人微信
+      description: 启用个人微信集成（基于wechatbot SDK）
+    wechat_app_storage:
+      name: 个人微信存储类型
+      description: 微信机器人会话存储类型 - file（文件）或memory（内存）
+    wechat_app_log_level:
+      name: 个人微信日志级别
+      description: 日志级别 - debug、info、warn、error

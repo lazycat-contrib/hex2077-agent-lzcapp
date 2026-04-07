@@ -1,0 +1,84 @@
+application:
+  subdomain: hex2077
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://hex2077:3000/
+  health_check:
+    test_url: http://hex2077:3000/
+    start_period: 30s
+    timeout: 10s
+
+services:
+  hex2077:
+    # ghcr.io/justlovemaki/hex2077-agent:latest
+    image: registry.lazycat.cloud/czyt/justlovemaki/hex2077-agent:b87a16cbe281ac94
+    environment:
+      # Required
+      - AI_API_KEY={{.U.ai_api_key}}
+      # Optional with defaults
+      - AI_BASE_URL={{.U.ai_base_url}}
+      - AI_MODEL={{.U.ai_model}}
+      - PORT=3000
+      # Rate limiting
+      - RATE_LIMIT_MAX=30
+      - RATE_LIMIT_WINDOW_MS=60000
+      # Chat limits
+      - CHAT_MAX_INPUT_LENGTH=500
+      - CHAT_MAX_HISTORY_ROUNDS=30
+      # Knowledge base
+      - KB_PASSWORD={{.U.kb_password}}
+      - KB_WIKI_LANGUAGE={{.U.kb_wiki_language}}
+      - KB_DATA_SOURCE_PREFERENCE={{.U.kb_data_source_preference}}
+      # OpenClaw China adapter
+      - OPENCLAW_ENABLED={{.U.openclaw_enabled}}
+      # Feishu
+      - FEISHU_ENABLED={{.U.feishu_enabled}}
+      - FEISHU_APP_ID={{.U.feishu_app_id}}
+      - FEISHU_APP_SECRET={{.U.feishu_app_secret}}
+      - FEISHU_CONNECTION_MODE={{.U.feishu_connection_mode}}
+      # DingTalk
+      - DINGTALK_ENABLED={{.U.dingtalk_enabled}}
+      - DINGTALK_CLIENT_ID={{.U.dingtalk_client_id}}
+      - DINGTALK_CLIENT_SECRET={{.U.dingtalk_client_secret}}
+      - DINGTALK_CONNECTION_MODE={{.U.dingtalk_connection_mode}}
+      # QQ Bot
+      - QQBOT_ENABLED={{.U.qqbot_enabled}}
+      - QQBOT_APP_ID={{.U.qqbot_app_id}}
+      - QQBOT_CLIENT_SECRET={{.U.qqbot_client_secret}}
+      # WeCom Bot
+      - WECOM_ENABLED={{.U.wecom_enabled}}
+      - WECOM_BOT_MODE={{.U.wecom_bot_mode}}
+      - WECOM_BOT_ID={{.U.wecom_bot_id}}
+      - WECOM_BOT_SECRET={{.U.wecom_bot_secret}}
+      # WeChat MP
+      - WECHAT_MP_ENABLED={{.U.wechat_mp_enabled}}
+      - WECHAT_MP_APP_ID={{.U.wechat_mp_app_id}}
+      - WECHAT_MP_APP_SECRET={{.U.wechat_mp_app_secret}}
+      - WECHAT_MP_TOKEN={{.U.wechat_mp_token}}
+      - WECHAT_MP_AES_KEY={{.U.wechat_mp_aes_key}}
+      - WECHAT_MP_MESSAGE_MODE={{.U.wechat_mp_message_mode}}
+      # WeCom App
+      - WECOM_APP_ENABLED={{.U.wecom_app_enabled}}
+      - WECOM_APP_CORP_ID={{.U.wecom_app_corp_id}}
+      - WECOM_APP_CORP_SECRET={{.U.wecom_app_corp_secret}}
+      - WECOM_APP_AGENT_ID={{.U.wecom_app_agent_id}}
+      - WECOM_APP_TOKEN={{.U.wecom_app_token}}
+      - WECOM_APP_AES_KEY={{.U.wecom_app_aes_key}}
+      # WeCom KF
+      - WECOM_KF_ENABLED={{.U.wecom_kf_enabled}}
+      - WECOM_KF_CORP_ID={{.U.wecom_kf_corp_id}}
+      - WECOM_KF_CORP_SECRET={{.U.wecom_kf_corp_secret}}
+      - WECOM_KF_OPEN_KFID={{.U.wecom_kf_open_kfid}}
+      - WECOM_KF_TOKEN={{.U.wecom_kf_token}}
+      - WECOM_KF_AES_KEY={{.U.wecom_kf_aes_key}}
+      # WeChat App
+      - WECHAT_APP_ENABLED={{.U.wechat_app_enabled}}
+      - WECHAT_APP_STORAGE={{.U.wechat_app_storage}}
+      - WECHAT_APP_STORAGE_DIR=/app/data/wechatbot
+      - WECHAT_APP_LOG_LEVEL={{.U.wechat_app_log_level}}
+    binds:
+      - /lzcapp/var/data:/app/data
+    restart: unless-stopped
+    mem_limit: 1024M

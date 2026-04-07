@@ -1,0 +1,20 @@
+package: community.lazycat.app.hex2077
+version: 0.1.0
+name: Hex2077
+description: AI Agent with multi-platform chatbot integration support
+min_os_version: 1.5.0
+author: justlovemaki
+license: MIT
+homepage: https://github.com/justlovemaki/hex2077-agent
+
+locales:
+  zh:
+    name: 何夕2077
+    description: 三位一体的数字化人格系统
+  en:
+    name: Hex2077 Agent
+    description: AI assistant with multi-platform chatbot integration, supporting OpenAI, DeepSeek, Grok and Feishu, DingTalk, WeChat bots
+
+permissions:
+  required:
+    - net.internet
