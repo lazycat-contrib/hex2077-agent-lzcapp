@@ -13,7 +13,7 @@ application:
 services:
   hex2077:
     # ghcr.io/justlovemaki/hex2077-agent:latest
-    image: registry.lazycat.cloud/czyt/justlovemaki/hex2077-agent:b87a16cbe281ac94
+    image: ghcr.1ms.run/justlovemaki/hex2077-agent:latest@sha256:79dafd9239b963458813aff57572a2584f737fdafe90eda7de03a3836f2e9d54
     environment:
       # Required
       - AI_API_KEY={{.U.ai_api_key}}
@@ -80,5 +80,4 @@ services:
       - WECHAT_APP_LOG_LEVEL={{.U.wechat_app_log_level}}
     binds:
       - /lzcapp/var/data:/app/data
-    restart: unless-stopped
     mem_limit: 1024M
